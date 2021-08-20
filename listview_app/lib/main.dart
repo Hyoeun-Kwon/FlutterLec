@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage>
         flyExist: false));
   }
 
-  //앱 종료 될때
+//앱 종료 될때
   @override
   void dispose() {
     // TODO: implement dispose

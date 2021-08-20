@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabbar_app/firstPage.dart';
 import 'package:tabbar_app/secondPage.dart';
-import 'pakage:tabbar_app/animalItem.dart';
+import 'package:tabbar_app/animalItem.dart';
 
 void main() {
   runApp(MyApp());
