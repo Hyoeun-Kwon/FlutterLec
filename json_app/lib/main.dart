@@ -73,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   "Code:",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                Text(data[index]['code'].toString()),
+                                Text(
+                                    data[index]['code'].toString()), //code:는 키값
                               ],
                             ),
                           ),
@@ -124,11 +125,14 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // flutter는 collectionView가 따로 없음!
+  //dart는 쓰레드 하나뿐!
   //함수를 같은 class 안에 사용할때는 ? setState사용하는구나
   Future<String> getJSONData() async {
-    //async 타입인데 실질적으로는 맨처음에 돌아감
-    //Future<String> : 대기하다가 사용하겠다.!?
-    var url = Uri.parse('http://localhost:8080/Flutter/student.json');
+    //async 타입인데 준비만 해놓고 실질적으로는 맨 나중에 돌아감, 그래서 '데이터가 없습니다 ' 가 먼저 보일 때도 있음
+    //Future<String> : 대기하다가 사용하겠다(결과가 미래)
+    var url = Uri.parse(
+        'http://localhost:8080/Flutter/student.json'); //안드는 localhost가 안될때도 있음! -> ip주소로 넣어주기
     var response = await http.get(url);
     //print(response.body);
 
@@ -136,8 +140,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       //화면에 있는 모양중에서 decode하면 json에서 [], {} 등이 없어지고, 키와 밸류값만 남음
       var dataConvertedJSON = json.decode(response.body);
+      //json이 한글일 경우 utf8.decode(response.bodyBytes) 라고 작성!
       List result =
           dataConvertedJSON['results']; // results는 json파일에서 시작에 있는 변수명
+      //List로 그대로 들어오기때문에 key : value 로 들어감
       //print(result); // 결과값:flutter: [{code: S001, name: aaa, dept: aaa, phone: 123-4567}, {code: S999, name: James, dept: Math, phone: 123-123}]
 
       data.addAll(result); // 데이터에 한번에 집어넣기 : addAll

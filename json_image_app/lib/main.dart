@@ -59,24 +59,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               // 아니라면 (값이 있다면)
               : ListView.builder(
-                  scrollDirection: Axis.horizontal,
+                  //scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     //하나의 카드 = 셀 디자인
                     return Card(
                       child: Container(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment
-                              .center, //상하(위아래)의 센터 , // 위젯 센터는 좌우
+                          // mainAxisAlignment: MainAxisAlignment.center, //상하(위아래)의 센터 , // 위젯 센터는 좌우
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                data[index]['image'],
-                                height: 400,
-                                width: 400,
-                                fit: BoxFit.contain,
-                              ),
-                            )
+                            Row(
+                              children: [
+                                Image.network(
+                                  data[index]['image'],
+                                  height: 150,
+                                  width: 100,
+                                  fit: BoxFit.contain,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${data[index]['title']}',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -90,10 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> getJSONData() async {
-    var url = Uri.parse('http://localhost:8080/Flutter/images.json');
+    var url = Uri.parse('http://localhost:8080/Flutter/movies.json');
     var response = await http.get(url);
     setState(() {
-      var dataConvertedJSON = json.decode(response.body);
+      var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
+      //json이 한글일 경우 utf8.decode(response.bodyBytes) 라고 작성!
       List result =
           dataConvertedJSON['results']; // results는 json파일에서 시작에 있는 변수명
       print(
