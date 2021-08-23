@@ -9,8 +9,7 @@ class Update extends StatefulWidget {
   final String rphone;
 
   const Update(
-      {Key,
-      key,
+      {Key? key,
       required this.rcode,
       required this.rname,
       required this.rdept,
@@ -124,7 +123,7 @@ class _UpdateState extends State<Update> {
 
   void getJSONData() async {
     var url = Uri.parse(
-        'http://localhost/Flutter/student_update_return_flutter.jsp?code=$code&name=$name&dept=$dept&phone=$phone');
+        'http://localhost:8080/Flutter/student_update_return_flutter.jsp?code=$code&name=$name&dept=$dept&phone=$phone');
     var response = await http.get(url);
     setState(() {
       var dataConvertedJSON = json.decode(utf8.decode(response.bodyBytes));
