@@ -145,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
                                         ),
+                                  //원하면 .toString() 다음 replaceRange 말고 subString(0 , 15), 으로 작성 가능
                                   Text(
                                     data[index]['authors'][0],
                                     style: TextStyle(fontSize: 15),
